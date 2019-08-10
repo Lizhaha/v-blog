@@ -1,0 +1,57 @@
+/*
+Write your variables here. All available variables can be
+found in https://github.com/iview/iview/blob/2.0/src/styles/custom.less.
+*/
+
+@import '~iview/src/styles/index.less';
+
+html {
+    font-size: 16px;
+}
+
+html,body{
+    height: 100%;
+}
+
+// color
+@primary-color: #448B5F;
+@info-color: #44b76f;
+@link-color: #448B5F;
+@body-background: #448B5F;
+@tag-color: rgb(230, 237, 223);
+
+//font-size
+@font-size-small: 12px;
+@font-size-base: 14px;
+@font-size-large: 18px;
+
+// media
+.common(@param: padding){
+    @media screen{
+        @media (max-width:768px){
+            .transRem(100);
+            @{param}: 0 @transRem;
+        }
+        @media (min-width:768px){
+            .transRem(150);
+            @{param}: 0 @transRem;
+        }
+    }
+}
+
+//px值转rem
+.transRem(@px) {
+    @unit: 0rem;
+    @transRem: (@px/16)+@unit;
+}
+
+// 公共背景
+.home {
+    height: 100%;
+    background: @primary-color;
+}
+// 布局的中间内容部分
+.content {
+    .common(margin);
+    flex-grow: 1;
+}
