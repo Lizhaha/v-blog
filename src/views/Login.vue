@@ -125,7 +125,7 @@ export default {
                             })
                             .then(res => {
                                 let data = res.data;
-                                if(data.code && data.code === 1) {
+                                if(data.code !== undefined && data.code === 1) {
                                     this.$Message.success(data.msg);
                                     // 将sessionId存储到 localStorage 中
                                     localStorage.setItem("tokenId",data.tokenId);
@@ -137,10 +137,10 @@ export default {
                                     });
                                     // 跳转到首页
                                     this.$router.replace('/');
-                                } else if(data.code && data.code === 0) {
+                                } else if(data.code !== undefined && data.code === 0) {
                                     this.$Message.error(data.msg);
                                 } else {
-                                    console.log("获取标签列表出现错误！");
+                                    console.log("登录出现错误！");
                                 }
                             })
                             .catch(err=>{
@@ -156,13 +156,13 @@ export default {
                             })
                             .then(res => {
                                 let data = res.data;
-                                if(data.code && data.code === 1) {
+                                if(data.code !== undefined && data.code === 1) {
                                     this.$Message.success(data.msg);
                                     this.handleChange();
-                                } else if(data.code && data.code === 0) {
+                                } else if(data.code !== undefined && data.code === 0) {
                                     this.$Message.error(data.msg);
                                 } else {
-                                    console.log("获取标签列表出现错误！");
+                                    console.log("注册出现错误！");
                                 }
                             })
                             .catch(err=>{

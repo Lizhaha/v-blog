@@ -24,7 +24,7 @@ export default new Vuex.Store({
         state.isLogin = false;
         data.$axios.post(utils.req_address+"/user/logout")
         .then((res)=>{
-          if(res.data.code && res.data.code === 1) {
+          if(res.data.code !== undefined && res.data.code === 1) {
             this.$Message.success(res.data.msg);
           }
         })
@@ -49,7 +49,7 @@ export default new Vuex.Store({
         }
       })
       .then((res)=>{
-        if(res.data.code && res.data.code === 1) {
+        if(res.data.code !== undefined && res.data.code === 1) {
           state.tagList = res.data.data;
         } else {
           this.$Message.error("获取标签列表错误！");
@@ -83,10 +83,10 @@ export default new Vuex.Store({
             "token_id": state.tokenId
           })
           .then(res => {
-              if( res.data.code && res.data.code === 1 ) {
+              if( res.data.code !== undefined && res.data.code === 1 ) {
                   commit('updateLoginStatus', res.data);
                   commit('getTag',_this);
-              } else if(res.data.code && res.data.code === 0) {
+              } else if(res.data.code !== undefined && res.data.code === 0) {
                 _this.$Message.error(res.data.msg);
               } else {
                 console.log("检查登录状态失败！");
@@ -101,7 +101,7 @@ export default new Vuex.Store({
         "tag_name": data.tag_name
       })
       .then((res)=>{
-        if(res.data.code && res.data.code === 1) {
+        if(res.data.code !== undefined && res.data.code === 1) {
           // 新增禁用和操作按钮的状态
           data._this.disableArr.push(true);
           data._this.edit.push(false);
@@ -109,7 +109,7 @@ export default new Vuex.Store({
           // 更新数据
           commit('getTag',data._this);
           (data._this).$Message.success(res.data.msg);
-        } else if(res.data.msg){
+        } else if(res.data.msg !== undefined){
           (data._this).$Message.error(res.data.msg);
         } else {
           console.log("添加标签失败！");
@@ -125,7 +125,7 @@ export default new Vuex.Store({
         "blog_total": state.tagList[data.index].total
       })
       .then((res)=>{
-        if(res.data.code && res.data.code === 1) {
+        if(res.data.code !== undefined && res.data.code === 1) {
           commit('updateTagList',{
             "tag_id": data.tag_id,
             "index": data.index
@@ -134,7 +134,7 @@ export default new Vuex.Store({
           if(state.tagList[data.index].total > 0) {
             commit('getTag',data._this);
           }
-        } else if(res.data.msg) {
+        } else if(res.data.msg !== undefined) {
           (data._this).$Message.error(res.data.msg);
         } else {
           console.log("删除标签失败！");
@@ -150,7 +150,7 @@ export default new Vuex.Store({
         "tag_name": state.tagList[data.index].tag_name
       })
       .then((res)=>{
-        if(res.data.code && res.data.code === 1) {
+        if(res.data.code !== undefined && res.data.code === 1) {
           (data._this).$Message.success(res.data.msg);
         } else {
           dispatch('commitTagName',{

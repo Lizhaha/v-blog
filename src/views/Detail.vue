@@ -115,10 +115,10 @@ export default {
                 "blog_id": this.blogList[0].blog_id
               })
               .then((res)=>{
-                if(res.data.code && res.data.code === 1) {
+                if(res.data.code !== undefined && res.data.code === 1) {
                   this.$Message.success(res.data.msg);
                   this.$router.replace({name:'login',params:{name:'login'}});
-                } else if(res.data.code) {
+                } else if(res.data.code !== undefined) {
                   this.$Message.error(res.data.msg);
                 } else {
                   console.log("删除blog出现错误！");
