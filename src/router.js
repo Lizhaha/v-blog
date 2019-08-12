@@ -38,7 +38,12 @@ const router = new Router({
       path: '/setting',
       name: 'setting',
       component: () => import('./views/Setting.vue')
-    }
+    },
+		{
+			name: 'NotMatch',
+			path: '*',
+			component: () => import('./views/404.vue'),
+		}
   ]
 });
 

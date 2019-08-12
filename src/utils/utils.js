@@ -1,4 +1,4 @@
-let req_address = "http://192.168.187.1:8080/v-blog";
+let req_address = "http://114.55.254.227:8080/v-blog";
 let avatar_url = "../assets/images";
 let warning_text = "抱歉！该功能正在开拓中...";
 

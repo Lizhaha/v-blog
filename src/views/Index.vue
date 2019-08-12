@@ -62,6 +62,7 @@ export default {
           this.$Message.error(res.data.msg);
         } else if(res.data.code && res.data.code === 2 ) {
           this.$Message.error(res.data.msg);
+          this.$router.replace({name: 'login',params:{name : 'login'}});
         } else {
           console.log("获取博客列表出现错误！");
         }
