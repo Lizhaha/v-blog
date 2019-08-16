@@ -18,8 +18,8 @@
           <div class="ql-container ql-snow" style="border:none;"><div class="ql-editor" v-html="blogList[0].content"></div></div>
         </div>
         <div class="tail">
-          <router-link :to="blogList[1] === null ? {} :{ name: 'detail', params:  { id: blogList[1].blog_id }}">上一篇：{{blogList[1] === null ? '无' : blogList[1].title}}</router-link>
-          <router-link :to="blogList[2] === null ? {} :{ name: 'detail', params:  { id: blogList[2].blog_id }}">下一篇：{{blogList[2] === null ? '无' : blogList[2].title}}</router-link>
+          <router-link class="neighbour" :to="blogList[1] === null ? {} :{ name: 'detail', params:  { id: blogList[1].blog_id }}">上一篇：{{blogList[1] === null ? '无' : blogList[1].title}}</router-link>
+          <router-link class="neighbour" :to="blogList[2] === null ? {} :{ name: 'detail', params:  { id: blogList[2].blog_id }}">下一篇：{{blogList[2] === null ? '无' : blogList[2].title}}</router-link>
         </div>
     </Content>
   </Layout>
@@ -75,8 +75,8 @@ export default {
           this.blogList = res.data.data;
           // 转换时间戳
           this.time = utils.Conversiontime(this.blogList[0].time);
-        } else if(res.data.code && res.data.code === 0) {
-          this.$Message.error(res.data.msg);
+        } else if(res.data.code !== undefined && res.data.code === 0) {
+          this.$router.replace({name:'login',params:{name:'login'}});
         } else {
           console.log("获取博客详情出现错误！");
         }
@@ -146,15 +146,18 @@ export default {
   @import url('../assets/iview-variables.less');
   .content {
     background: @component-background;
-    padding: 10px 20px;
+    .px2rem(padding-top,10);
+    .px2rem(padding-bottom,10);
+    .px2rem(padding-left,20);
+    .px2rem(padding-right,20);
     .head,.body {
-      padding: 10px;
+      .px2rem(padding,10);
       border-bottom: 1px solid @primary-color;
       text-align: left;
     }
     .head {
       text-align: left;
-      padding: 10px;
+      .px2rem(padding,10);
       .title{
         font-weight: bold;
         font-size: @font-size-large;
@@ -163,6 +166,7 @@ export default {
       div {
         display: flex;
         align-content: center;
+        flex-wrap: wrap;
       }
       div p {
         line-height: 28px;
@@ -173,6 +177,16 @@ export default {
       display: flex;
       justify-content: space-between;
       padding: 5px 0;
+      text-align: left;
+      .neighbour{
+        width: 50%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .neighbour:nth-of-type(2) {
+        text-align: right;
+      }
     }
   }
 </style>

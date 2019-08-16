@@ -33,6 +33,23 @@
                 <Button type="primary" ghost @click="handleJump('register')">注册</Button>
             </div>
         </div>
+        <div class="menu">
+            <Dropdown v-if="isLogin" @on-click="clickItem" placement="bottom-end">
+                <a href="javascript:void(0)">
+                    {{userInfo.username}}
+                    <Icon type="ios-arrow-down"></Icon>
+                </a>
+                <DropdownMenu slot="list">
+                    <DropdownItem name="setting">
+                        <Icon type="ios-settings-outline" />设置
+                    </DropdownItem>
+                    <DropdownItem name="logout">
+                        <Icon type="ios-swap" /> 退出
+                    </DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+            <Button type="primary" v-else ghost @click="handleJump('login')">登录</Button>
+        </div>
     </div>
 </template>
 
@@ -76,9 +93,11 @@ export default {
         line-height: @line-height-base + 0.5;
         display: flex;
         background: @component-background;
-        .common(padding);
-        .transRem(20);
-        margin-bottom: @transRem;
+        .common(padding-left);
+        .common(padding-right);
+        .px2rem(margin-bottom,20);
+        position: relative;
+        align-items: center;
     }
     .logo {
         flex: 1;
@@ -90,8 +109,7 @@ export default {
         text-align: right;
         line-height: 4;
         button:nth-of-type(2) {
-            .transRem(10);
-            margin-left: @transRem;
+            .px2rem(margin-left,10);
         }
         .loged {
             display: flex;
@@ -100,13 +118,44 @@ export default {
                 margin-right: 10px;
                 cursor: pointer;
             }
-            p  .Avatar {
-                color: @normal-color ;
-                background-color: @primary-color;
-            }
             .text {
-                margin-left: 6px;
+                .px2rem(margin-left,6);
                 text-align: left;
+            }
+        }
+    }
+    .Avatar {
+        color: @normal-color ;
+        background-color: @primary-color;
+    }
+    .menu {
+        position: absolute;
+        right: 10px;
+        display: none;
+    }
+    @media screen{
+        // 屏幕宽度小于768px时
+        @media (max-width:@screen-s){
+            .header-left {
+              display: none;
+            }
+            .logo {
+                text-align: center;
+            }
+            .menu {
+                display: block;
+            }
+        }
+        // 屏幕宽度大于768px时
+        @media (min-width:@screen-s){
+            .header-left {
+              display: block;
+            }
+            .logo {
+                text-align: left;
+            }
+            .menu {
+                display: none;
             }
         }
     }

@@ -48,12 +48,14 @@ export default {
     .userMsg {
         width: 100%;
         box-sizing: border-box;
-        margin: 40px 0;
-        padding: 0 20px;
+        .px2rem(margin-top,40);
+        .px2rem(margin-bottom,40);
+        .px2rem(padding-left,20);
+        .px2rem(padding-right,20);
         display: flex;
         div {
             text-align: left;
-            padding-left: 10px;
+        .px2rem(padding-left,10);
         }
     }
     .Avatar {
@@ -64,9 +66,10 @@ export default {
         width: 100%;
         p {
             box-sizing: border-box;
-            margin: 0 20px;
+            .px2rem(margin-left,20);
+            .px2rem(margin-right,20);
             text-align: left;
-            line-height: 40px;
+            .px2rem(line-height,40);
             color: @primary-color;
             cursor: pointer;
             position: relative;
@@ -80,7 +83,8 @@ export default {
             background: @tag-color;
             cursor: default;
             margin: 0;
-            padding: 0 20px;
+            .px2rem(padding-left,20);
+            .px2rem(padding-right,20);
         }
     }
 </style>

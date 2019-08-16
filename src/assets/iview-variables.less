@@ -25,24 +25,28 @@ html,body{
 @font-size-base: 14px;
 @font-size-large: 18px;
 
+//screen size
+@screen-s: 768px;
+@screen-m: 1049px;
+
 // media
 .common(@param: padding){
+    transition: margin .2s;
+    transition: padding .2s;
     @media screen{
-        @media (max-width:768px){
-            .transRem(100);
-            @{param}: 0 @transRem;
+        // 屏幕宽度小于415时
+        @media (max-width:@screen-s){
+            .px2rem(@param,0);
         }
-        @media (min-width:768px){
-            .transRem(150);
-            @{param}: 0 @transRem;
+        // 屏幕宽度在1048和768px之间时
+        @media (max-width: @screen-m) and (min-width: @screen-s){
+            .px2rem(@param,75);
+        }
+        // 屏幕宽度大于1048时
+        @media (min-width:@screen-m){
+            .px2rem(@param,150);
         }
     }
-}
-
-//px值转rem
-.transRem(@px) {
-    @unit: 0rem;
-    @transRem: (@px/16)+@unit;
 }
 
 // 公共背景
@@ -52,6 +56,12 @@ html,body{
 }
 // 布局的中间内容部分
 .content {
-    .common(margin);
+    .common(margin-left);
+    .common(margin-right);
     flex-grow: 1;
+}
+
+@baseSize: 136.6;
+.px2rem(@name, @px){
+    @{name}: @px / @baseSize * 1rem;
 }

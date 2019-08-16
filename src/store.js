@@ -87,6 +87,7 @@ export default new Vuex.Store({
                   commit('updateLoginStatus', res.data);
                   commit('getTag',_this);
               } else if(res.data.code !== undefined && res.data.code === 0) {
+                state.isLogin = false;
                 _this.$Message.error(res.data.msg);
               } else {
                 console.log("检查登录状态失败！");

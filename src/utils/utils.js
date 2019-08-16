@@ -1,4 +1,4 @@
-let req_address = "http://114.55.254.227:8080/v-blog";
+let req_address = process.env.NODE_ENV === 'production' ? "http://114.55.254.227:8080/v-blog" : "http://192.168.1.105:8080/v-blog";
 let avatar_url = "../assets/images";
 let warning_text = "抱歉！该功能正在开拓中...";
 

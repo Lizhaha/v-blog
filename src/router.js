@@ -53,7 +53,6 @@ router.beforeEach((to, from, next) => {
   // next: Function: 一定要调用该方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数。
 
   const nextRoute = ['detail','index','manageTag','setting','write'];
-  console.log(store.state.isLogin);
   let isLogin = store.state.isLogin;
   // 未登录状态；当路由到nextRoute指定页时，跳转至login
   if (nextRoute.indexOf(to.name) >= 0 && !isLogin) {
@@ -67,7 +66,6 @@ router.beforeEach((to, from, next) => {
   // 已登录状态；当路由到login时，跳转至home
   if (to.name === 'login') {
     if (isLogin) {
-        console.log('已登录');
         router.push({ path: '/' });
     }
   }

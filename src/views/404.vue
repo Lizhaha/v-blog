@@ -57,12 +57,28 @@ export default {
   @import url('../assets/iview-variables.less');
   .content {
     text-align: left;
-    padding: 20px;
+    .px2rem(padding,20);
     background: @component-background;
     .go {
         font-weight: bold;
         text-decoration: underline;
     }
   }
+  @media screen{
+        // 屏幕宽度小于768px时
+        @media (max-width:@screen-s){
+            .content img {
+              width: 240px;
+              height: 150px;
+            }
+        }
+        // 屏幕宽度大于768px时
+        @media (min-width:@screen-s){
+            .content img {
+              width: 480px;
+              height: 300px;
+            }
+        }
+    }
 </style>
 

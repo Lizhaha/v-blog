@@ -5,7 +5,7 @@
             <div class="edit item">
                 <h2>您创建的标签列表：</h2>
                 <!-- slot-scope 的参数有 3 个：当前行数据 row，当前列数据 column，当前行序号 index。 -->
-                <Table border :columns="columns" :data="tagList" width="800">
+                <Table border :columns="columns" :data="tagList" >
                     <template slot-scope="{ row,index }" slot="name">
                         <Input 
                             v-model="row.tag_name" 
@@ -66,7 +66,7 @@ export default {
             {
                 title: '数量',
                 slot: 'total',
-                width: 150
+                width: 68
             },
             {
                 title: '操作',

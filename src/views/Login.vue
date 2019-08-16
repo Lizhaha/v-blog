@@ -2,7 +2,7 @@
     <Layout class="home">
         <Header></Header>
         <Content class="content">
-            <Form class="form" ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
+            <Form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
                 <FormItem label="手机号码" prop="phonenum">
                     <Input type="text" v-model="formCustom.phonenum" placeholder="请输入手机号码"></Input>
                 </FormItem>
@@ -17,8 +17,9 @@
                 </FormItem>
                 <FormItem>
                     <Button type="warning" @click="handleChange()">{{pageName === "login" ? "未有账号，去注册" : "已有账号，去登录"}}</Button>
-                    <Button type="primary" @click="handleSubmit('formCustom')" style="margin-left: 8px">
-                        {{pageName === "login" ? "登录" : "注册"}}
+                    <Button type="primary" @click="handleSubmit('formCustom')" style="margin-left: 8px" :loading="loading">
+                        <span v-if="!loading">{{pageName === "login" ? "登录" : "注册"}}</span>
+                        <span v-else>{{pageName === "login" ? "登录" : "注册"}}中...</span>
                     </Button>
                     <Button @click="handleReset('formCustom')" style="margin-left: 8px">重置</Button>
                 </FormItem>
@@ -89,7 +90,7 @@ export default {
         }
     };
     return {
-        flag: 1,
+        loading: false,
         pageName: '',
         formCustom: {
             phonenum: '',
@@ -115,6 +116,7 @@ export default {
   },
     methods: {
         handleSubmit (name) {
+            this.loading = true;
             this.$refs[name].validate((valid) => {
                 if (valid) {
                     switch (this.pageName) {
@@ -145,6 +147,9 @@ export default {
                             })
                             .catch(err=>{
                                 console.log(err);
+                            })
+                            .finally(()=>{
+                                this.loading = false;
                             });
                             break;
 
@@ -167,6 +172,9 @@ export default {
                             })
                             .catch(err=>{
                                 console.log(err);
+                            })
+                            .finally(()=>{
+                                this.loading = false;
                             });
                             break;
 
@@ -174,6 +182,7 @@ export default {
                             break;
                     }
                 } else {
+                    this.loading = false;
                     this.$Message.error('信息存在错误!');
                 }
             })
@@ -202,16 +211,10 @@ export default {
 <style lang="less" scoped>
   @import url('../assets/iview-variables.less');
   .content {
-    .common(margin);
     background: @component-background;
-    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .form {
-    .transRem(400);
-    width: @transRem;
   }
 </style>
 

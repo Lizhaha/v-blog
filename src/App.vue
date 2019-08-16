@@ -6,6 +6,7 @@
 
 <script>
 import Header from './components/Header.vue'
+import './utils/shipei'
 
 export default {
   name: 'app',
@@ -14,7 +15,7 @@ export default {
   },
 	beforeCreate () {
 		this.$store.dispatch('checkLogin',this);
-	}
+  }
 }
 </script>
 

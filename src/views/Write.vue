@@ -11,10 +11,10 @@
         </div>
         <quill-editor v-model="content" class="item"
                         ref="myQuillEditor"
-                        :options="editorOption"
-                        @blur="onEditorBlur($event)"
+                        :options="editorOption">
+                        <!-- @blur="onEditorBlur($event)"
                         @focus="onEditorFocus($event)"
-                        @change="onEditorChange($event)">
+                        @change="onEditorChange($event)"> -->
         </quill-editor>
         <div class="abstract item">
             摘要：
@@ -51,8 +51,8 @@ export default {
   data () {
       return {
         maxlength: {
-          title: 100,
-          abstract: 50
+          title: 50,
+          abstract: 100
         },
         tagId: 0,
         startTagId: 0,
@@ -125,9 +125,21 @@ export default {
                 })
                 .then(res=>{
                   if(res.data.code === 1) {
-                    this.$Message.success(res.data.msg);
-                    this.$router.replace({'name': "index"});
                     this.removeBlogStorage();
+                    // 清空输入
+                    Vue.set(this.blog,'title','');
+                    Vue.set(this.blog,'abstract','');
+                    this.content = '';
+                    // 提示
+                    this.$Modal.confirm({
+                        title: '提示',
+                        content: `<p>${res.data.msg}</p><p>是否回到首页</p>`,
+                        okText: '回首页',
+                        cancelText: '再写一篇',
+                        onOk: () => {
+                            this.$router.replace({'name': "index"});
+                        }
+                    });
                   }else {
                     this.$Message.error(`${res.data.msg},已为您保存到缓存中`);
                     this.saveBlogStorage();
@@ -138,16 +150,7 @@ export default {
           }
       },
       handleAddTag(){
-        this.$Modal.confirm({
-          title: '提示',
-          content: '<p>添加标签须前往标签管理页面，本页内容将自动保存</p><p>确认前往？</p>',
-          onOk: () => {
-            // 将所写内容保存到缓存中
-            this.saveBlogStorage();
-            // 跳转至标签管理页
-            this.$router.push({name:'manageTag'});
-          }
-        });
+        this.$router.push({name:'manageTag'});
       },
       saveBlogStorage(){
         let obj = {};
@@ -182,8 +185,9 @@ export default {
       if(this.blog.title != '' || this.blog.abstract != '' || this.content != '') {
         this.$Modal.confirm({
             title: '提示',
-            content: '<p>所编辑的内容将不会被保存，确认离开当然页面吗？</p>',
+            content: '<p>所编辑的内容将会被保存到缓存中，下次可继续编辑，确认离开当前页面吗？</p>',
             onOk: () => {
+                this.saveBlogStorage();
                 next()
             },
             onCancel: () => {
@@ -204,7 +208,6 @@ export default {
     text-align: left;
   }
   .content {
-    .common(margin);
     padding: 20px;
     height: ~"calc(100% - 84px)";
     background: @component-background;

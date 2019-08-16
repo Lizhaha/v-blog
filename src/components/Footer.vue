@@ -29,7 +29,6 @@ export default {
         display: flex;
         background: @component-background;
         .common(padding);
-        .transRem(20);
-        margin-top: @transRem;
+        .px2rem(margin-top,20);
     }
 </style>

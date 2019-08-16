@@ -61,7 +61,6 @@ export default {
         } else if(res.data.code && res.data.code === 0 ) {
           this.$Message.error(res.data.msg);
         } else if(res.data.code && res.data.code === 2 ) {
-          this.$Message.error(res.data.msg);
           this.$router.replace({name: 'login',params:{name : 'login'}});
         } else {
           console.log("获取博客列表出现错误！");
@@ -85,8 +84,11 @@ export default {
   }
   .content {
     background: none;
+    transition: display .2s;
+    .left {
+      margin-right: 20px;
+    }
     .right {
-      margin-left: 20px;
       position: relative;
       .item {
         padding: 10px 20px;
@@ -97,10 +99,20 @@ export default {
           font-size: @font-size-large;
           font-weight: bold;
           cursor: pointer;
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
         .abstract {
           color: @subsidiary-color;
           margin: 5px 0;
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
         }
       }
       .tip {
@@ -109,6 +121,20 @@ export default {
         left: 50%;
         transform: translate(-50%,-50%);
         font-size: @font-size-base;
+      }
+    }
+    @media screen{
+      // 屏幕宽度小于768px时
+      @media (max-width:@screen-s){
+          .left {
+            display: none;
+          }
+      }
+      // 屏幕宽度大于768px时
+      @media (min-width:@screen-s){
+          .left {
+            display: block;
+          }
       }
     }
   }
